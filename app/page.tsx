@@ -1,10 +1,86 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import Brand from "./_components/Brand";
 import DigestList from "./_components/DigestList";
 import StatusBar from "./_components/StatusBar";
 import type { ActionItem } from "./_components/types";
+
+const MARKDOWN_COMPONENTS = {
+  p: (props: React.ComponentProps<"p">) => (
+    <p {...props} className="mb-3 last:mb-0 leading-relaxed" />
+  ),
+  strong: (props: React.ComponentProps<"strong">) => (
+    <strong {...props} className="font-semibold text-stone-900 dark:text-stone-100" />
+  ),
+  em: (props: React.ComponentProps<"em">) => <em {...props} className="italic" />,
+  ul: (props: React.ComponentProps<"ul">) => (
+    <ul {...props} className="mb-3 last:mb-0 ml-5 list-disc space-y-1 marker:text-stone-400" />
+  ),
+  ol: (props: React.ComponentProps<"ol">) => (
+    <ol {...props} className="mb-3 last:mb-0 ml-5 list-decimal space-y-1 marker:text-stone-400" />
+  ),
+  li: (props: React.ComponentProps<"li">) => (
+    <li {...props} className="leading-relaxed" />
+  ),
+  h1: (props: React.ComponentProps<"h1">) => (
+    <h1 {...props} className="mt-4 mb-2 text-base font-semibold tracking-tight" />
+  ),
+  h2: (props: React.ComponentProps<"h2">) => (
+    <h2 {...props} className="mt-4 mb-2 text-base font-semibold tracking-tight" />
+  ),
+  h3: (props: React.ComponentProps<"h3">) => (
+    <h3 {...props} className="mt-3 mb-1.5 text-sm font-semibold tracking-tight" />
+  ),
+  a: (props: React.ComponentProps<"a">) => (
+    <a
+      {...props}
+      target="_blank"
+      rel="noreferrer"
+      className="text-stone-900 dark:text-stone-100 underline underline-offset-2 decoration-stone-300 dark:decoration-stone-700 hover:decoration-stone-600 dark:hover:decoration-stone-400"
+    />
+  ),
+  code: (props: React.ComponentProps<"code">) => (
+    <code
+      {...props}
+      className="rounded bg-stone-100 dark:bg-stone-900 px-1 py-0.5 text-[0.85em] font-mono text-stone-800 dark:text-stone-200"
+    />
+  ),
+  pre: (props: React.ComponentProps<"pre">) => (
+    <pre
+      {...props}
+      className="mb-3 last:mb-0 overflow-x-auto rounded-lg bg-stone-100 dark:bg-stone-900 p-3 text-xs font-mono"
+    />
+  ),
+  blockquote: (props: React.ComponentProps<"blockquote">) => (
+    <blockquote
+      {...props}
+      className="mb-3 last:mb-0 border-l-2 border-stone-300 dark:border-stone-700 pl-3 text-stone-600 dark:text-stone-400 italic"
+    />
+  ),
+  hr: (props: React.ComponentProps<"hr">) => (
+    <hr {...props} className="my-4 border-stone-200 dark:border-stone-800" />
+  ),
+  table: (props: React.ComponentProps<"table">) => (
+    <div className="mb-3 last:mb-0 overflow-x-auto">
+      <table {...props} className="w-full border-collapse text-xs" />
+    </div>
+  ),
+  th: (props: React.ComponentProps<"th">) => (
+    <th
+      {...props}
+      className="border-b border-stone-300 dark:border-stone-700 px-2 py-1.5 text-left font-medium"
+    />
+  ),
+  td: (props: React.ComponentProps<"td">) => (
+    <td
+      {...props}
+      className="border-b border-stone-200 dark:border-stone-800 px-2 py-1.5"
+    />
+  ),
+};
 
 type Persona = "developer" | "manager" | "finance";
 type Citation = { email_id: string; subject: string; quote: string };
@@ -196,8 +272,15 @@ export default function Home() {
                     </p>
                   ) : (
                     <>
-                      <div className="text-sm leading-relaxed whitespace-pre-wrap max-w-full">
-                        {m.text || (
+                      <div className="text-sm leading-relaxed max-w-full">
+                        {m.text ? (
+                          <ReactMarkdown
+                            remarkPlugins={[remarkGfm]}
+                            components={MARKDOWN_COMPONENTS}
+                          >
+                            {m.text}
+                          </ReactMarkdown>
+                        ) : (
                           <span className="inline-block h-3 w-1.5 bg-stone-400 dark:bg-stone-600 animate-pulse" />
                         )}
                       </div>
