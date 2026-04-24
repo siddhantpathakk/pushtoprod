@@ -29,7 +29,7 @@ async function verifySessionCookie(
   const payloadB64 = token.slice(0, idx);
   const sigB64 = token.slice(idx + 1);
 
-  let sig: Uint8Array;
+  let sig: Uint8Array<ArrayBuffer>;
   try {
     sig = fromBase64Url(sigB64);
   } catch {

@@ -88,7 +88,7 @@ async function verifySignedString(signed: string): Promise<string | null> {
   if (idx <= 0) return null;
   const payload = signed.slice(0, idx);
   const sigB64 = signed.slice(idx + 1);
-  let sig: Uint8Array;
+  let sig: Uint8Array<ArrayBuffer>;
   try {
     sig = fromBase64Url(sigB64);
   } catch {
