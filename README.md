@@ -179,16 +179,12 @@ Same agent, two interfaces, every feature visible.
 
 - [x] Public GitHub repo · https://github.com/siddhantpathakk/pushtoprod
 - [x] Working local dev server
-- [x] All 12 Claude features implemented
-- [ ] Deployed demo URL *(in progress)*
-- [ ] 2-min demo video
-- [ ] Architecture diagram (above is the source)
 
 ---
 
 ## Team
 
-Built by three humans + Claude over a 4-hour sprint at Push to Prod 2026, Singapore. The repo's three top-level folders (`backend/`, `email/`, `frontend/`) map to those three humans — split deliberately to enable parallel work without git conflicts.
+Built by Team LSD (Lauren, Siddhant, Devesh) + Claude over a 4-hour sprint at Push to Prod 2026, Singapore. The repo's three top-level folders (`backend/`, `email/`, `frontend/`) map to those three humans — split deliberately to enable parallel work without git conflicts.
 
 ---
 
