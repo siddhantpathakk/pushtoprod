@@ -1,0 +1,128 @@
+
+Cloud Managers, that one is, I don't know how those two connect with each other, but Cloud Managers is meant for like, you just push it to Cloud's Infra, like Anthropics Infra, and it will just work like the entire Infra thing. The agent will run there. You still do the agent development part on the site.
+
+Just that the Infra is all... Just that all management of like, how will it run, where will it run, on their machine, on their server, wherever. I don't know, I think they should be connected, because I think one's a way of deploying, the other's way of writing. I really, I assume they should be connected, but I also don't know.
+
+I think probably to research there, I guess, a bit. So what do you think about the... Okay, because their problem statement is actually to kind of automate repetitive tasks, right? Enhance productivity for anyone.
+
+But our current use case is that we are going to build an evaluation for agents. It's quite developer-specific, right? So are you all okay with that? Because it's not very addressing a layman kind of productivity solution.
+
+Like something that is very layman and useful for everyone is... You can brainstorm, like we can keep a timer to brainstorm, like this is a backup idea kind of a thing, like a failsafe. And you brainstorm for like another 10-15 minutes. If you find something better in that duration, you go with that.
+
+Just in case you don't play, spend time going on. Yeah. I think... Yeah, I think we can think like, do you have any other case in mind? .. Like any regular repetitive tasks? For me, it's organizing files.
+
+Like having your personal secretary. It's like cool work. Having your personal secretary is a cool work thing. Allow like laptops presently.
+
+Yeah. Yeah. So for example, every time I download a lot of files, right, everything will go into my downloads folder. Then what if I want to always shift files from the download folder into my organized folders in documents? So actually I was thinking about it. So for code work, for example, I can create like a organized file skill.
+
+I don't know. I don't know. I don't use all of my files. Oh, okay. Or clock code. You can just have a skill that is organized files, right? Then it kind of maintains a memory of your file mapping. So okay, I have two active projects like CheckExcel and ActionReadyBot.
+
+Then, and if I download some Excel files that were submitted to me by a user who met some issues with CheckExcel, for example, then I can trigger the secretary and say, okay, can you please move this to a facing issue by a user in the CheckExcel project folder?
+
+Then it will navigate by itself and move it. Move the files. Probably one step ahead, it will debug it. Debug? Oh, okay. That's a bit too complicated. Okay, I'm talking more about the secretary part.
+
+Okay. Yeah, just the organizing of files like more of a general productivity tool. Okay. Yeah. So one idea we can move files around. That one. Yeah. The skill needs to know what folders you have. How do you organize the folders yourself?
+
+Yes. So it builds up that memory over time. Then there's another one which is basically logging events. Logging. Okay. This is more for my personal use case. So for example, if people have a lot of issues with CheckExcel, then they will submit it to me, right?
+
+Then the team messages keep coming in like at random times of the day. And yeah, then if I can, yeah, if I can have a secretary who kind of logs these events for me. So I just trigger that clock scale, like log event. And then for this project, what just happened?
+
+Like someone tell me that there's these issues. No. But you have to type it out. Like in clock code. The chance to track that is actually someone messaged you.
+
+Yeah. So how does it be unlikely? I have to copy paste all of them. How about? These are just ideas. I'm not saying that we have to do it.
+
+Yeah. And Spark has that thing where you connect it to email. So just not connect to Outlook. For example, connected to say a dummy Gmail or something. I have a dummy Gmail where someone's complaint about some application comes in.
+
+Then it routes to that particular person and within that particular person, it will create a list of things that have piled up. Let's say two issues for me, three for you, four for you. Then I don't know. I'm thinking like how, like, now that the issues are, now that you know that okay, it's a PDFIQ issue, so it should go to him.
+
+It's a very monitored company. It's like a manager, assistant kind of thing. Sort of a thing. Like a managing of a mailbox, common mailbox, like JNN mailbox.
+
+Sort of, yes. Sort of, yes. Like, currently, like, the server is having that mailbox. So, like, has to manually forward that email. Like, has to know that, oh, this microservice is meant for this person. So the alert for this has to go here.
+
+Yeah. So then, that monitoring is done. I don't know that JNNs Park or Claw or whatever. Yeah. Like, that monitoring is done on the mailbox. Like, basically, reading mailbox things.
+
+Right? Yeah. Then, .. But how are we going to have a sample mailbox? We have to create... Okay. Okay. Okay. Okay. Along that, I was also thinking, like, personal assistant, one is organizing files. Second, I mean, for me, personally, it is the...
+
+You have to, like, do bill payments. - Or these kind of, like, time sensitive things, like, which come in your inbox. Maybe you skip them. Yeah, yeah. Or there's some... It's like your email parser, in a way. Which then... Next one is, like, maybe, oh, remind me where are my points expiring or something.
+
+Yeah. So it will show you that, oh, your points for... Is this card or something, right? Yeah. So it's just, like... You can just ask it for a very generic, like, ..
+
+Yeah. So essentially, like, a chatbot, but for, like, your email box. It's like an assistant, yeah, for your email, which knows... What emails you're getting. Yeah. So it can, like, so that, oh, like, if I say, how many KF points I have.
+
+Yeah. And look for, like, what all mails I got. Yeah. Yeah. And read them, and, like, at the last account summary you got, said you had 3,000 points expiring this time. Yeah. Or maybe, like, you got a... You got a alert for your, next bill payment or something like that.
+
+So you have to pay the bill for this. So it will just track your email. And then, if you link it with your local, it can also do that via organizing stuff. Yeah. I like the idea.
+
+Yeah. So you can, like, look at my to-do, yeah. But do we... Yeah. Okay. Non-enter. Yeah, non-enter. So this is a very personal, .. I understand. But we can say that it also makes... Okay, I mean, it might be...
+
+It makes sense for office also. Yeah, it makes sense for office also. Yeah. Like, maybe you have a project timeline or something. I don't know. I can remind you all.
+
+So the gist of it is the HR or the finance document or something. Or, like, you need to submit your, insurance, .. You know, that's your insurance that is expired. Or your, your, your, your, your, your, your, some server's password is expiring in 14 days.
+
+Yeah, yeah, yeah, yeah. Thing like that. So, like, you can ask, like, give me a talk. Yeah, yeah, yeah. So... How about... So gist is basically... How about something like, reads through your mailbox.
+
+And then, on a regular schedule or something. It generates, what are the action items for you. So, I don't know, is that manage-based agent? Does it have some hook which can...
+
+Yeah, I was thinking... Hook. I'm not sure. I was thinking... I was thinking, but Jan's part will have you, right? Yeah, I was for no answer. I was thinking, along the lines, like, okay, it reads the emails and sees, like, oh, firstly, there's a password that is a, not expired, all that.
+
+Yeah. Yeah. So, that's... So, the way you're wearing your cap gives me a very heck of like... Ha, ha, ha, ha, ha, ha, ha, ha. Okay. Come on, it's getting. one thing is... Chatting with the email.
+
+Then I need to get... Okay, we take it later, we take it later. Okay, okay. I think it's a mailbox that answers, like, questions based on that thing. The other is, it creates a daily gist for you.
+
+Like, what are the daily... Like, action items or like, something you flag, but you flag to respond, but didn't respond. Yeah. Or like, the insurance item. Like, something like, like, your jarvis for your own.
+
+But I feel like, two things along the line. So, one is that whole chatting with the email box thing. Second is, gist of action items on email box. Like, insurance due, like, insurance claim pending due, like, these invoices are due to be verified or like, whatever.
+
+Like, these emails are unreplied to. Actually, I just realised, I think if you have Gemini and Gmail has some of these features actually. So, but just saying. Yeah, but we... Because it's linked to your calendar and stuff.
+
+Yeah. The Gmail... No, I'm just saying that maybe it's... Oh! Not an administrative thing. Oh, I see. Just all that lines. But yeah. But I mean, you can create one.
+
+Yeah, yeah. You can create one, right? I wanted to say something. Okay, so the... One of the... I feel like the value proposition that we can present is that... one is that... Basically, we receive a lot of tasks from both emails and teams.
+
+Right? Both. And then we are kind of... By creating this, we are kind of merging it into one... Yeah. Like a central... Yeah. Like a secretary for you. How about that? Who looks at... So, I chose email because...
+
+Email, we don't have to showcase outlook or anything. We can just show like a dummy... Yeah. Out, like Gmail mailbox. Yeah. As an example. Yeah. And have some sampling as there.
+
+Teams also can, but I don't... I don't want to connect... Yeah, there's no connector. Yeah. I don't want to connect...
+
+Yeah. Even if there was, I don't want to connect... To a real... Yes. I agree. How about we... Okay, at this point, we can say that, oh, there's no connector. So, we use like a... We can use a...
+
+Just a login kind of... Probably we can... Like if we were to present, we can say like... This can be extended to further modes like say Slack or the... You know, or like...
+
+So, something like... Yeah. Yeah. I think Slack, we can create one. I mean, if we can create one. I mean, if we can create Slack as an example. Just personally, I'm like...
+
+Can you something which created a Chinese title for money? Yeah. Who are you? So... Suddenly, I don't want you to see the email. What do you guys think of that? Ken, I'm okay with it.
+
+So... Okay, you. It's like your personal system. Yeah. Knows everything about your schedule. Knows everything. Schedule not necessarily... As in emails. Emails. Yeah. Yeah. It knows your emails. So, it knows who you are from the email itself.
+
+Which can be like... Whatever like... All the emails you get. Some sample like... Meeting to do. Meeting to do. Meeting to do. All that. And... Cloud has a connector for Gmail. It's not a connector for reading.
+
+Like... Not a hook kind of a thing. I don't think it's an... Incoming web hook kind of a thing. I think it's probably like...
+
+It has a... Gmail MCP kind of a thing. Like it can read... Go and fetch particular emails or something. Google Photos must be there.
+
+Right? I just read like that. This personal thing. For that invoice splitting. Oh. Because that's actually a tedious task. I mean that. I think that's a...
+
+Invoice splitting. Even doing like... Split the view. Yeah. Like you went for lunch or something. You just... Yeah. Add in a skill or something. Yeah. We could add it as a skill. Yeah. We can say like...
+
+I'm just thinking about the features. That one you can use. That one you can use. Since all models are visual models.
+
+Could it? For icing on top, we could also have a clock code. Okay, so the interface for the user, the interface for the user would be clock code. Then you can trigger, is it? Or how do you imagine it to be?
+
+Some character. I mean we will probably need to make up. Okay, how about, okay, if you are a developer, maybe you can use clock code. But we can have a Slayer skill to spin up the dashboard also. Then you can use a Streamlit or a chat interface.
+
+Or like a UI. Yeah, UI. Why clock code if I may ask? Because it's familiar to me and I know how to create the, we can do the skills and everything. Or AI or anything, so whatever.
+
+Yeah, basically, so the one, the Giz thing anyway is a hook kind of a thing. The chat thing would be any chat interface, whether it's a terminal or it's a CLI tool or it's a web app, whatever. Yeah. That one anyway is not a trick. That one's solvable at any point.
+
+Okay. Can, but we have limited time. So we need to scope it out. Yeah, we can like write down what we do. Okay. Okay, so we are settled on this idea.
+
+No more evaluation or agents. Okay, we'll think of it probably as a tool if then you have a developer persona for the chat. Yeah. That one, I think. Divergence from the entire idea of it I feel.
+
+Because okay, the idea for that whole email looker and… I mean this, okay, the, I think the value proposition is it, it does the tedious task for you so you can focus on other stuff. Yeah. So if you're a developer, I mean analyzing logs is your task. Yeah.
+
+And if you're a normal person like going to split the bills, skill/task whatever. And then your email is overarching for everything. Any extra thing you just add like skill or something. If, if there is something.
+
+And then people have the option to create more customer. Yeah. They can describe and then they'll say like… So… So you can have one say HR, one dev, one manager. Yeah. Three different personas as an example. HR or finance would be focused on splitting bills as an example or like… I take an example.
+
+Then manager would be focused on like forwarding emails to the right audience or something like that. It's all that. Isn't it? Yeah. My manager should be able to forward too but… I, I, I think we get settled on. Okay. Okay, sure. Go ahead.

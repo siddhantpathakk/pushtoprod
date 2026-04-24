@@ -1,0 +1,74 @@
+[
+  {
+    "id": "email-001",
+    "threadId": "thread-001",
+    "from": "noreply@krisflyer.singaporeair.com",
+    "to": "you@example.com",
+    "subject": "KrisFlyer monthly statement — April 2026",
+    "date": "2026-04-22T08:00:00Z",
+    "snippet": "Your KrisFlyer balance is 3,247 miles.",
+    "body": "Hi,\n\nYour current KrisFlyer balance is 3,247 miles.\n\n412 miles will expire on 18 May 2026 if not used.\n\nThanks,\nKrisFlyer",
+    "labels": ["INBOX", "CATEGORY_PROMOTIONS"],
+    "unread": true
+  },
+  {
+    "id": "email-007",
+    "threadId": "thread-007",
+    "from": "statements@dbs.com.sg",
+    "to": "you@example.com",
+    "subject": "DBS Credit Card Statement — Payment due Apr 28",
+    "date": "2026-04-15T03:00:00Z",
+    "snippet": "Your statement balance of S$842.30 is due Apr 28.",
+    "body": "Dear customer,\n\nYour DBS Altitude Visa statement is ready.\n\nStatement balance: S$842.30\nMinimum payment: S$50.00\nPayment due date: 28 April 2026\n\nLate payment fees apply.\n\nDBS",
+    "labels": ["INBOX", "CATEGORY_FINANCE"],
+    "unread": false
+  },
+  {
+    "id": "email-014",
+    "threadId": "thread-014",
+    "from": "sarah.chen@example.com",
+    "to": "you@example.com",
+    "subject": "PR review please — checkout flow refactor",
+    "date": "2026-04-22T10:30:00Z",
+    "snippet": "Could you take a look at #847 today? Blocking the release.",
+    "body": "Hey,\n\nCould you take a look at PR #847 today? It's blocking the Friday release.\n\nThanks!\nSarah",
+    "labels": ["INBOX", "UNREAD"],
+    "unread": true
+  },
+  {
+    "id": "email-021",
+    "threadId": "thread-021",
+    "from": "alerts@github.com",
+    "to": "you@example.com",
+    "subject": "[checkexcel/api] CI failure on main",
+    "date": "2026-04-23T14:12:00Z",
+    "snippet": "Build #2341 failed. 2 tests failing in auth_spec.ts.",
+    "body": "GitHub Actions\n\nWorkflow: CI / build-and-test\nBranch: main\nCommit: a3f81b2\n\nBuild #2341 failed.\nFailing: tests/auth_spec.ts:42 (token refresh), tests/auth_spec.ts:88 (session timeout)\n\nView run: https://github.com/checkexcel/api/actions/runs/2341",
+    "labels": ["INBOX", "CATEGORY_UPDATES"],
+    "unread": true
+  },
+  {
+    "id": "email-022",
+    "threadId": "thread-022",
+    "from": "ops@mycompany.com",
+    "to": "you@example.com",
+    "subject": "Action required: server password expires in 5 days",
+    "date": "2026-04-21T09:00:00Z",
+    "snippet": "Your prod-db-01 SSH password expires Apr 29.",
+    "body": "Hello,\n\nYour password for prod-db-01 expires on 29 April 2026 (5 days).\n\nRotate via: https://ops.mycompany.com/rotate\n\nFailure to rotate will lock you out.",
+    "labels": ["INBOX", "IMPORTANT"],
+    "unread": true
+  },
+  {
+    "id": "email-031",
+    "threadId": "thread-031",
+    "from": "user-bug-reports@checkexcel.io",
+    "to": "you@example.com",
+    "subject": "[CheckExcel] Cannot import .xlsx with merged cells",
+    "date": "2026-04-23T05:45:00Z",
+    "snippet": "User Maria reports import fails on merged cells.",
+    "body": "From: Maria Tan <maria@acme.com>\n\nHi team,\n\nI tried to import our Q1 sales sheet into CheckExcel and it errors out with 'cannot parse merged cells'. We use merged cells extensively for headers.\n\nIs there a workaround?\n\nMaria",
+    "labels": ["INBOX", "PROJECT_CHECKEXCEL"],
+    "unread": true
+  }
+]

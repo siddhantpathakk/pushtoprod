@@ -1,0 +1,30 @@
+Here's what the team landed on:
+
+**Core Idea: AI-Powered Personal Secretary / Email Assistant**
+
+A personal AI secretary that monitors your inbox and helps you stay on top of things — essentially a "Jarvis for your email."
+
+**Two Main Features**
+1. **Chat with your mailbox** — ask natural language questions like "how many KrisFlyer points do I have?" or "what bills are due?" and it reads your emails to answer.
+2. **Daily action item digest** — proactively surfaces things like unpaid bills, expiring passwords, unreplied emails, pending insurance claims, etc.
+
+**Bonus Skills (stretch goals)**
+- File organizer — moves downloaded files into the right project folders based on learned memory of your folder structure.
+- Invoice/bill splitting — upload a receipt, split costs among people.
+- Event/issue logging — log incoming reports or complaints to the right project.
+
+**Interface**
+- Primary: web UI or chat interface (Streamlit or similar), not just CLI.
+- Claude Code as a possible developer-facing interface, but a proper UI is the priority for demo purposes.
+
+**Personas to demo** (to show breadth)
+- Developer — log analysis, project file organization
+- Manager — email routing/forwarding to the right person
+- Finance/HR — bill tracking, invoice splitting
+
+**Practical decisions**
+- Use a dummy Gmail account (avoid connecting to real/personal inboxes for the demo), leveraging Gmail MCP.
+- Dropped the "agent evaluation" idea — too developer-niche, not broad enough.
+- Slack as a potential extension to mention but not build.
+
+**Dropped ideas:** Agent evaluation framework (too dev-specific, doesn't fit the "automate repetitive work for anyone" brief).
