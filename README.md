@@ -1,4 +1,6 @@
-# Push to Prod — AI Email Secretary
+# Clarion — Clarity from the Chaos
+
+An AI email secretary.
 
 A "Jarvis for your email." Two features:
 

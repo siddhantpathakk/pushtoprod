@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Brand from "./_components/Brand";
 import DigestList from "./_components/DigestList";
 import StatusBar from "./_components/StatusBar";
 import type { ActionItem } from "./_components/types";
@@ -136,12 +137,8 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       <header className="px-8 py-6 flex items-center justify-between max-w-5xl w-full mx-auto">
-        <div className="flex items-baseline gap-2">
-          <span className="font-medium tracking-tight">push to prod</span>
-          <span className="text-stone-400 dark:text-stone-600 text-sm">
-            / secretary
-          </span>
-        </div>
+        <Brand tagline />
+
         <select
           value={persona}
           onChange={(e) => setPersona(e.target.value as Persona)}
@@ -258,8 +255,9 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="px-8 py-6 max-w-5xl w-full mx-auto text-xs text-stone-400 dark:text-stone-600">
-        Claude Agent SDK · MCP
+      <footer className="px-8 py-6 max-w-5xl w-full mx-auto flex items-center justify-between text-xs text-stone-400 dark:text-stone-600">
+        <span>Clarion · Clarity from the chaos</span>
+        <span>Claude Agent SDK · MCP</span>
       </footer>
     </div>
   );

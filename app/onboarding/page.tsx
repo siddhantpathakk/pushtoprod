@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { ClarionMark } from "@/app/_components/Brand";
 
 type Persona = "developer" | "manager" | "finance";
 
@@ -143,10 +144,9 @@ export default function OnboardingPage() {
   return (
     <div className="min-h-screen flex items-center justify-center px-6 py-16">
       <div className="w-full max-w-lg space-y-10">
-        <div className="flex items-center justify-center">
-          <span className="font-medium tracking-tight text-sm">
-            push to prod
-          </span>
+        <div className="flex items-center justify-center gap-2 text-stone-900 dark:text-stone-100">
+          <ClarionMark size="sm" />
+          <span className="font-medium tracking-tight text-sm">Clarion</span>
         </div>
 
         <StepDots step={step} />
@@ -154,13 +154,13 @@ export default function OnboardingPage() {
         {step === 1 && (
           <section className="space-y-6 text-center">
             <h1 className="text-2xl font-medium tracking-tight">
-              A quiet secretary for your inbox.
+              Clarity from the chaos.
             </h1>
             <p className="text-sm text-stone-500 leading-relaxed max-w-md mx-auto">
-              Push to Prod reads what lands in your mailbox and surfaces the
-              handful of things that actually need you — bills coming due,
-              points about to expire, real humans still waiting on a reply. Ask
-              it anything else, anytime.
+              Clarion reads what lands in your mailbox and surfaces the handful
+              of things that actually need you — bills coming due, points about
+              to expire, real humans still waiting on a reply. Ask it anything
+              else, anytime.
             </p>
             <div className="pt-2 flex items-center justify-center">
               <button

@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Push to Prod",
-  description: "A quiet secretary for a noisy inbox.",
+  title: "Clarion — Clarity from the chaos",
+  description: "Clarity from the chaos. A quiet secretary for a noisy inbox.",
 };
 
 export default function RootLayout({

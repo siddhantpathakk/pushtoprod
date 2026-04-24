@@ -1,8 +1,9 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
+import { ClarionMark } from "@/app/_components/Brand";
 
 export const metadata = {
-  title: "Sign in · Push to Prod",
+  title: "Sign in · Clarion",
 };
 
 export default async function LoginPage({
@@ -20,11 +21,17 @@ export default async function LoginPage({
     <div className="min-h-screen flex flex-col">
       <main className="flex-1 flex items-center justify-center px-6">
         <div className="w-full max-w-sm flex flex-col items-center text-center gap-8">
-          <div className="flex flex-col items-center gap-2">
-            <span className="font-medium tracking-tight text-xl">push to prod</span>
-            <p className="text-sm text-stone-500 leading-relaxed">
-              A quiet secretary for a noisy inbox.
-            </p>
+          <div className="flex flex-col items-center gap-3">
+            <ClarionMark
+              size="lg"
+              className="text-stone-900 dark:text-stone-100"
+            />
+            <div className="flex flex-col items-center gap-1">
+              <h1 className="font-medium tracking-tight text-2xl">Clarion</h1>
+              <p className="text-sm text-stone-500 leading-relaxed">
+                Clarity from the chaos.
+              </p>
+            </div>
           </div>
 
           <a
@@ -47,7 +54,7 @@ export default async function LoginPage({
       </main>
 
       <footer className="px-6 py-6 text-center text-xs text-stone-400 dark:text-stone-600">
-        By continuing you agree to let Push to Prod read your inbox, gently.
+        By continuing you agree to let Clarion read your inbox, gently.
       </footer>
     </div>
   );
