@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx tsx bin/digest.ts --persona=${PERSONA:-finance}"
+          }
+        ]
+      }
+    ]
+  },
+  "mcpServers": {
+    "secretary": {
+      "command": "npx",
+      "args": ["tsx", "mcp-servers/secretary/index.ts"]
+    }
+  }
+}
