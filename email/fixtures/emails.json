@@ -12,6 +12,66 @@
     "unread": true
   },
   {
+    "id": "email-002",
+    "threadId": "thread-002",
+    "from": "billing@aws.amazon.com",
+    "to": "you@example.com",
+    "subject": "AWS Invoice — April 2026 (Account: 1234-5678-9012)",
+    "date": "2026-04-23T02:15:00Z",
+    "snippet": "Total amount due: USD 2,340.50. Payment due 10 May.",
+    "body": "Hello,\n\nYour AWS invoice for April 2026 is now available.\n\nTotal amount due: USD 2,340.50\nPayment due date: 10 May 2026\nAccount ID: 1234-5678-9012\n\nView and pay your bill in the AWS Billing Console:\nhttps://console.aws.amazon.com/billing\n\nThank you,\nAmazon Web Services",
+    "labels": ["INBOX", "CATEGORY_FINANCE"],
+    "unread": true
+  },
+  {
+    "id": "email-003",
+    "threadId": "thread-003",
+    "from": "billing@wework.com",
+    "to": "you@example.com",
+    "subject": "Invoice #WW-88214 — May 2026 Office Rental",
+    "date": "2026-04-20T11:00:00Z",
+    "snippet": "S$4,800.00 due 1 May 2026.",
+    "body": "Hi,\n\nPlease find your invoice for May 2026:\n\nLocation: WeWork Beach Centre, Level 8\nDedicated desks × 6: S$4,800.00\nDue date: 1 May 2026\n\nPay via bank transfer to the account in the attached PDF.\n\nRegards,\nWeWork Billing",
+    "labels": ["INBOX", "CATEGORY_FINANCE"],
+    "unread": false
+  },
+  {
+    "id": "email-004",
+    "threadId": "thread-004",
+    "from": "billing@zoom.us",
+    "to": "you@example.com",
+    "subject": "Payment failed — Zoom Business plan",
+    "date": "2026-04-24T03:00:00Z",
+    "snippet": "We were unable to process your payment for Zoom Business.",
+    "body": "Hi,\n\nWe were unable to process your payment for Zoom Business.\n\nPlan: Zoom Business (15 hosts)\nAmount: S$249.90/month\nCard ending in: 4829\n\nWe'll retry the charge in 3 days. Please update your payment method to avoid service interruption.\n\n— Zoom Billing",
+    "labels": ["INBOX", "IMPORTANT"],
+    "unread": true
+  },
+  {
+    "id": "email-005",
+    "threadId": "thread-005",
+    "from": "no-reply@aws-acm.amazonaws.com",
+    "to": "you@example.com",
+    "subject": "[Action Required] SSL certificate expiring in 11 days",
+    "date": "2026-04-24T06:30:00Z",
+    "snippet": "api.yourcompany.io expires 5 May 2026.",
+    "body": "Hello,\n\nThe following ACM certificate is expiring soon:\n\nDomain: api.yourcompany.io\nCertificate ARN: arn:aws:acm:ap-southeast-1:123456:certificate/abc-123\nExpiry: 5 May 2026\n\nIf auto-renewal failed, you may need to re-validate domain ownership.\n\n— AWS Certificate Manager",
+    "labels": ["INBOX", "IMPORTANT"],
+    "unread": true
+  },
+  {
+    "id": "email-006",
+    "threadId": "thread-006",
+    "from": "sales@jetbrains.com",
+    "to": "you@example.com",
+    "subject": "IntelliJ IDEA team license expiring — 30 April",
+    "date": "2026-04-19T10:00:00Z",
+    "snippet": "Your JetBrains All Products Pack expires 30 April.",
+    "body": "Hi,\n\nYour JetBrains All Products Pack subscription for 5 users expires on 30 April 2026.\n\nRenewal quote: USD 649.00/year (5 seats)\n\nRenew here: https://account.jetbrains.com\n\n— JetBrains",
+    "labels": ["INBOX", "CATEGORY_FINANCE"],
+    "unread": false
+  },
+  {
     "id": "email-007",
     "threadId": "thread-007",
     "from": "statements@dbs.com.sg",
@@ -20,6 +80,42 @@
     "date": "2026-04-15T03:00:00Z",
     "snippet": "Your statement balance of S$842.30 is due Apr 28.",
     "body": "Dear customer,\n\nYour DBS Altitude Visa statement is ready.\n\nStatement balance: S$842.30\nMinimum payment: S$50.00\nPayment due date: 28 April 2026\n\nLate payment fees apply.\n\nDBS",
+    "labels": ["INBOX", "CATEGORY_FINANCE"],
+    "unread": false
+  },
+  {
+    "id": "email-008",
+    "threadId": "thread-008",
+    "from": "renewals@marsh.com",
+    "to": "you@example.com",
+    "subject": "D&O Insurance premium due — renewal notice",
+    "date": "2026-04-18T09:30:00Z",
+    "snippet": "Premium S$3,200 due 31 May 2026.",
+    "body": "Dear Finance Team,\n\nYour Directors & Officers (D&O) liability insurance policy is due for renewal.\n\nPolicy: D&O-SG-2024-0891\nPremium: S$3,200.00\nRenewal deadline: 31 May 2026\n\nPlease ensure payment is made before the deadline to maintain coverage.\n\nKind regards,\nMarsh Singapore",
+    "labels": ["INBOX", "CATEGORY_FINANCE"],
+    "unread": true
+  },
+  {
+    "id": "email-009",
+    "threadId": "thread-009",
+    "from": "noreply@stripe.com",
+    "to": "you@example.com",
+    "subject": "Payout sent: USD 18,420 to your bank",
+    "date": "2026-04-22T15:00:00Z",
+    "snippet": "Stripe payout USD 18,420.00 initiated.",
+    "body": "Hi,\n\nA payout of USD 18,420.00 was sent to your bank account ending in 1188.\n\nExpected arrival: 25 April 2026\nPeriod: 15-21 April 2026\n\nView details in your Stripe Dashboard.\n\n— Stripe",
+    "labels": ["INBOX", "CATEGORY_FINANCE"],
+    "unread": false
+  },
+  {
+    "id": "email-010",
+    "threadId": "thread-010",
+    "from": "billing@grab.com",
+    "to": "you@example.com",
+    "subject": "Corporate rides invoice — April 2026",
+    "date": "2026-04-23T08:00:00Z",
+    "snippet": "S$1,127.40 due 15 May 2026.",
+    "body": "Hi Admin,\n\nYour Grab for Business corporate rides summary for April 2026:\n\nTotal trips: 47\nTotal amount: S$1,127.40\nPayment due: 15 May 2026\n\nDownload the breakdown from your Grab for Business dashboard.\n\nThanks,\nGrab for Business",
     "labels": ["INBOX", "CATEGORY_FINANCE"],
     "unread": false
   },
@@ -33,6 +129,42 @@
     "snippet": "Could you take a look at #847 today? Blocking the release.",
     "body": "Hey,\n\nCould you take a look at PR #847 today? It's blocking the Friday release.\n\nThanks!\nSarah",
     "labels": ["INBOX", "UNREAD"],
+    "unread": true
+  },
+  {
+    "id": "email-015",
+    "threadId": "thread-015",
+    "from": "arjun.patel@example.com",
+    "to": "you@example.com",
+    "subject": "Re: Q2 hiring plan — your call?",
+    "date": "2026-04-19T14:20:00Z",
+    "snippet": "Following up — need your input on the 3 senior eng roles by EOW.",
+    "body": "Hey,\n\nFollowing up on my message from last Tuesday — I need your sign-off on the Q2 hiring plan, specifically the 3 senior eng roles. Finance is asking. Could we get this locked by end of week?\n\nThanks,\nArjun",
+    "labels": ["INBOX", "UNREAD"],
+    "unread": true
+  },
+  {
+    "id": "email-016",
+    "threadId": "thread-016",
+    "from": "maya.goh@example.com",
+    "to": "you@example.com",
+    "subject": "Quick question on the contractor agreement",
+    "date": "2026-04-17T11:45:00Z",
+    "snippet": "Sent the draft 5 days ago — any feedback?",
+    "body": "Hi,\n\nSent over the contractor MSA draft 5 days ago — wanted to check if you've had a chance to look it over. Legal needs the final version by Friday.\n\nMaya",
+    "labels": ["INBOX", "UNREAD"],
+    "unread": true
+  },
+  {
+    "id": "email-017",
+    "threadId": "thread-017",
+    "from": "recruiter@octopus.dev",
+    "to": "you@example.com",
+    "subject": "Senior backend role — interested in chatting?",
+    "date": "2026-04-21T16:00:00Z",
+    "snippet": "Reaching out about a Staff Eng role at Octopus.",
+    "body": "Hi,\n\nI'm Priya at Octopus — we're hiring a Staff Backend Engineer and your profile looked like a great fit. Open to a 20-min chat next week?\n\nPriya",
+    "labels": ["INBOX", "CATEGORY_PROMOTIONS"],
     "unread": true
   },
   {
@@ -60,6 +192,42 @@
     "unread": true
   },
   {
+    "id": "email-023",
+    "threadId": "thread-023",
+    "from": "billing-alerts@aws.amazon.com",
+    "to": "you@example.com",
+    "subject": "AWS cost anomaly: us-east-1 spend up 47% week-over-week",
+    "date": "2026-04-22T19:30:00Z",
+    "snippet": "Spike detected in EC2 NAT Gateway costs.",
+    "body": "AWS Cost Anomaly Detection\n\nDetected anomaly:\nService: EC2 - NAT Gateway\nRegion: us-east-1\nWeek-over-week: +47% (USD 312 → USD 458)\nLikely cause: Increased data transfer from new staging VPC\n\nReview in Cost Explorer: https://console.aws.amazon.com/cost-management",
+    "labels": ["INBOX", "CATEGORY_UPDATES"],
+    "unread": true
+  },
+  {
+    "id": "email-024",
+    "threadId": "thread-024",
+    "from": "security@github.com",
+    "to": "you@example.com",
+    "subject": "Critical security advisory — lodash CVE-2026-1234",
+    "date": "2026-04-24T01:00:00Z",
+    "snippet": "Lodash 4.17.20 affected. 3 of your repos use it.",
+    "body": "GitHub Security\n\nA critical advisory was published for lodash (CVE-2026-1234, CVSS 9.8).\nAffected versions: < 4.17.21\n\nYour repositories using affected versions:\n- checkexcel/api (lodash@4.17.20)\n- checkexcel/web (lodash@4.17.19)\n- internal/dashboards (lodash@4.17.20)\n\nDependabot has opened PRs to patch.",
+    "labels": ["INBOX", "IMPORTANT"],
+    "unread": true
+  },
+  {
+    "id": "email-025",
+    "threadId": "thread-025",
+    "from": "pagerduty@checkexcel.io",
+    "to": "you@example.com",
+    "subject": "On-call rotation: you're up next week (Apr 28 – May 4)",
+    "date": "2026-04-20T17:00:00Z",
+    "snippet": "Heads up — you're primary on-call next week.",
+    "body": "Hi,\n\nFriendly reminder you're primary on-call next week:\n\nStart: Mon 28 Apr 2026 09:00 SGT\nEnd: Sun 4 May 2026 09:00 SGT\nSecondary: Sarah Chen\n\nReview the runbook: https://wiki.checkexcel.io/oncall",
+    "labels": ["INBOX", "CATEGORY_UPDATES"],
+    "unread": false
+  },
+  {
     "id": "email-031",
     "threadId": "thread-031",
     "from": "user-bug-reports@checkexcel.io",
@@ -70,5 +238,29 @@
     "body": "From: Maria Tan <maria@acme.com>\n\nHi team,\n\nI tried to import our Q1 sales sheet into CheckExcel and it errors out with 'cannot parse merged cells'. We use merged cells extensively for headers.\n\nIs there a workaround?\n\nMaria",
     "labels": ["INBOX", "PROJECT_CHECKEXCEL"],
     "unread": true
+  },
+  {
+    "id": "email-032",
+    "threadId": "thread-032",
+    "from": "escalation@bigcustomer.com",
+    "to": "you@example.com",
+    "subject": "URGENT: Production outage on our integration since Tuesday",
+    "date": "2026-04-23T22:10:00Z",
+    "snippet": "Webhook deliveries failing. Considering pausing the contract.",
+    "body": "Team,\n\nOur production integration has been broken since Tuesday morning. Webhook deliveries failing with 503s. We've raised 4 support tickets with no response.\n\nIf this isn't resolved by EOD tomorrow, we'll need to pause the contract.\n\nEscalating directly to you.\n\n— Daniel Lim, Head of Eng @ BigCustomer",
+    "labels": ["INBOX", "IMPORTANT", "UNREAD"],
+    "unread": true
+  },
+  {
+    "id": "email-033",
+    "threadId": "thread-033",
+    "from": "calendar@google.com",
+    "to": "you@example.com",
+    "subject": "Reschedule: 1:1 with Arjun moved to Friday 3pm",
+    "date": "2026-04-22T07:00:00Z",
+    "snippet": "Your 1:1 with Arjun has been rescheduled.",
+    "body": "Your meeting has been rescheduled:\n\n1:1 with Arjun Patel\nFrom: Wednesday 24 April, 2:00 PM\nTo: Friday 26 April, 3:00 PM\nLocation: Meet — https://meet.google.com/abc-defg-hij\n\nAdded to your calendar.",
+    "labels": ["INBOX", "CATEGORY_UPDATES"],
+    "unread": false
   }
 ]
