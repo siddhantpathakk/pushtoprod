@@ -1,15 +1,6 @@
 import { STUB_DIGEST } from "@frontend/stub-data";
-
-const URGENCY_DOT: Record<"high" | "medium" | "low", string> = {
-  high: "bg-red-500",
-  medium: "bg-amber-500",
-  low: "bg-stone-400 dark:bg-stone-600",
-};
-
-function formatDueDate(iso: string): string {
-  const d = new Date(iso + "T00:00:00");
-  return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-}
+import DigestList from "./_components/DigestList";
+import StatusBar from "./_components/StatusBar";
 
 export default function Home() {
   return (
@@ -32,51 +23,11 @@ export default function Home() {
         </select>
       </header>
 
+      <StatusBar />
+
       <main className="flex-1 grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-16 px-8 pb-16 pt-4 max-w-5xl w-full mx-auto">
         <section aria-label="Today's digest" className="space-y-6">
-          <div className="flex items-end justify-between">
-            <div>
-              <h2 className="text-2xl font-medium tracking-tight">Today</h2>
-              <p className="text-sm text-stone-500 mt-1">
-                {STUB_DIGEST.length} things to look at.
-              </p>
-            </div>
-            <button
-              type="button"
-              className="text-sm text-stone-500 hover:text-stone-900 dark:hover:text-stone-100 transition-colors"
-            >
-              Refresh
-            </button>
-          </div>
-
-          <ul className="divide-y divide-stone-200 dark:divide-stone-900 -mx-2">
-            {STUB_DIGEST.map((item) => (
-              <li
-                key={item.id}
-                className="group px-2 py-4 first:pt-2 hover:bg-stone-100/60 dark:hover:bg-stone-900/40 rounded transition-colors"
-              >
-                <div className="flex items-start gap-3">
-                  <span
-                    aria-label={`${item.urgency} urgency`}
-                    className={`mt-2 h-1.5 w-1.5 rounded-full shrink-0 ${URGENCY_DOT[item.urgency]}`}
-                  />
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-baseline justify-between gap-4">
-                      <p className="font-medium truncate">{item.title}</p>
-                      {item.due_date && (
-                        <span className="text-xs text-stone-500 shrink-0 tabular-nums">
-                          {formatDueDate(item.due_date)}
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-sm text-stone-500 mt-1 leading-relaxed">
-                      {item.reason}
-                    </p>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+          <DigestList items={STUB_DIGEST} />
         </section>
 
         <section
