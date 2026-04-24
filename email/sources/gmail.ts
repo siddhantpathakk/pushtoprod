@@ -15,6 +15,37 @@ export class GmailFetchError extends Error {
 
 const GMAIL_API = "https://gmail.googleapis.com/gmail/v1/users/me";
 
+// Gmail's per-user quota is 250 units/sec; messages.get costs 5 units each,
+// so 50 parallel requests can burst over the ceiling (especially when Ask
+// fires right after Digest). Cap concurrency to stay under the limit.
+const GMAIL_GET_CONCURRENCY = 10;
+
+// Short-lived in-memory cache for list() results. Ask and Digest often run
+// back-to-back against the same inbox; caching lets the second request skip
+// the Gmail round trip entirely.
+const LIST_CACHE_TTL_MS = 60_000;
+type ListCacheEntry = { expiresAt: number; data: Email[] };
+const listCache = new Map<string, ListCacheEntry>();
+
+async function mapWithConcurrency<T, R>(
+  items: T[],
+  limit: number,
+  fn: (item: T) => Promise<R>,
+): Promise<R[]> {
+  const results: R[] = new Array(items.length);
+  let cursor = 0;
+  const workerCount = Math.min(limit, items.length);
+  const workers = Array.from({ length: workerCount }, async () => {
+    while (true) {
+      const idx = cursor++;
+      if (idx >= items.length) return;
+      results[idx] = await fn(items[idx]);
+    }
+  });
+  await Promise.all(workers);
+  return results;
+}
+
 type GmailListResponse = {
   messages?: { id: string; threadId: string }[];
   nextPageToken?: string;
@@ -107,6 +138,13 @@ async function gmailFetch<T>(
       403,
     );
   }
+  if (res.status === 429) {
+    throw new GmailFetchError(
+      "Gmail 429",
+      "Currently experiencing rate limit issues with Google. Please try again in a moment.",
+      429,
+    );
+  }
   if (!res.ok) {
     throw new GmailFetchError(
       `Gmail ${res.status}`,
@@ -131,6 +169,10 @@ export class GmailEmailSource implements EmailSource {
     if (opts?.query) qParts.push(opts.query);
     const q = qParts.join(" ").trim();
 
+    const cacheKey = `${this.accessToken}|${limit}|${q}`;
+    const cached = listCache.get(cacheKey);
+    if (cached && cached.expiresAt > Date.now()) return cached.data;
+
     const ids: string[] = [];
     let pageToken: string | undefined;
 
@@ -150,13 +192,14 @@ export class GmailEmailSource implements EmailSource {
       pageToken = page.nextPageToken;
     }
 
-    // Fetch each message in parallel. Gmail's per-user quota is generous for
-    // the message.get endpoint (~5 units each, 250/user/sec limit) so a batch
-    // of ~50 is fine.
-    const messages = await Promise.all(
-      ids.map((id) => this.get(id)),
+    const messages = await mapWithConcurrency(
+      ids,
+      GMAIL_GET_CONCURRENCY,
+      (id) => this.get(id),
     );
-    return messages.filter((m): m is Email => m !== null);
+    const data = messages.filter((m): m is Email => m !== null);
+    listCache.set(cacheKey, { data, expiresAt: Date.now() + LIST_CACHE_TTL_MS });
+    return data;
   }
 
   async get(id: string): Promise<Email | null> {
