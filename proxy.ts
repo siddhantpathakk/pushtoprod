@@ -8,7 +8,7 @@ const SESSION_COOKIE = "pp_session";
 const ONBOARDING_COMPLETE_COOKIE = "onboarding_complete";
 const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 7;
 
-function fromBase64Url(s: string): Uint8Array {
+function fromBase64Url(s: string): Uint8Array<ArrayBuffer> {
   const pad = s.length % 4 === 0 ? 0 : 4 - (s.length % 4);
   const b64 = s.replace(/-/g, "+").replace(/_/g, "/") + "=".repeat(pad);
   const binary = atob(b64);

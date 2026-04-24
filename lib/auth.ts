@@ -27,7 +27,7 @@ function toBase64Url(bytes: Uint8Array): string {
   return b64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
 }
 
-function fromBase64Url(s: string): Uint8Array {
+function fromBase64Url(s: string): Uint8Array<ArrayBuffer> {
   const pad = s.length % 4 === 0 ? 0 : 4 - (s.length % 4);
   const b64 = s.replace(/-/g, "+").replace(/_/g, "/") + "=".repeat(pad);
   const binary = typeof atob === "function" ? atob(b64) : Buffer.from(b64, "base64").toString("binary");
