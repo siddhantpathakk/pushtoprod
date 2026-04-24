@@ -34,21 +34,26 @@ in `.env.local` after Human 1's OAuth setup is complete.
 
 Deployed on Vercel from `main` branch. **Hosted URL: TBD** — capture once Human 2 deploys.
 
-## Repo layout
+## Repo layout — split by owner to avoid git conflicts
 
-See `docs/EXECUTION.md` for the full execution plan, and `hackaton_context.md`
+See `docs/EXECUTION.md` for the full execution plan and `hackaton_context.md`
 + `plan.md` for the original team planning docs.
 
 ```
-app/                    Next.js routes (UI + API)
-components/             React components (UI)
-lib/secretary/          Agent core, subagents, prompts, types
-lib/secretary/sources/  EmailSource interface + fixtures + gmail-mcp
-mcp-servers/secretary/  Custom MCP server (mark_done, snooze, split_invoice)
-bin/                    CLI entrypoints (digest for SessionStart hook)
-fixtures/emails.json    Seeded inbox (~45 emails target)
-.claude/                Skills, hooks, slash commands
+backend/        Owner: Claude              Agent core, digest, prompts, subagents
+email/          Owner: Human 1 + Human 3   EmailSource, Gmail MCP, fixtures (content)
+frontend/       Owner: Human 2             React components, hooks, stub data
+app/            Cross-cutting (small)       Next.js routes (pages + API), thin delegators
+mcp-servers/    Owner: Claude              Custom MCP server (TBD)
+.claude/        Owner: Claude + Human 3    Skills, hooks, slash commands (TBD)
+docs/           Shared                      Plan, transcript, execution doc
 ```
+
+Each owner folder has its own `README.md`. Cross-folder imports use TS path aliases:
+
+- `@backend/...` → `backend/...`
+- `@email/...` → `email/...`
+- `@frontend/...` → `frontend/...`
 
 ## Claude features in the demo
 

@@ -1,5 +1,5 @@
 // Stubs so Human 2 can build the UI without waiting on the agent.
-import type { ActionItem, Answer } from "./secretary/types";
+import type { ActionItem, Answer } from "@backend/types";
 
 export const STUB_ANSWER: Answer = {
   text: "You have 3,247 KrisFlyer points. 412 of them expire on May 18, 2026.",

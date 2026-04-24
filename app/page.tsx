@@ -1,4 +1,4 @@
-import { STUB_DIGEST } from "@/lib/stub-data";
+import { STUB_DIGEST } from "@frontend/stub-data";
 
 export default function Home() {
   return (

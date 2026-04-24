@@ -19,7 +19,10 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@backend/*": ["./backend/*"],
+      "@email/*": ["./email/*"],
+      "@frontend/*": ["./frontend/*"]
     }
   },
   "include": [

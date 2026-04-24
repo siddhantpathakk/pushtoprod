@@ -1,4 +1,4 @@
-import type { Persona } from "./sources";
+import type { Persona } from "@email/sources";
 
 const BASE = `You are an AI personal secretary that reads a user's email inbox and helps them stay on top of things.
 You answer factually based ONLY on the emails provided. If an email cannot answer a question, say so.

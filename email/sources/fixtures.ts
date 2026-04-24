@@ -6,7 +6,7 @@ let cache: Email[] | null = null;
 
 function load(): Email[] {
   if (cache) return cache;
-  const p = path.join(process.cwd(), "fixtures", "emails.json");
+  const p = path.join(process.cwd(), "email", "fixtures", "emails.json");
   cache = JSON.parse(readFileSync(p, "utf-8")) as Email[];
   return cache;
 }
