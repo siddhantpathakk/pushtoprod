@@ -1,6 +1,7 @@
 import type Anthropic from "@anthropic-ai/sdk";
 import { ActionItemSchema, type ActionItem } from "./types";
 import type { Persona } from "@email/sources";
+import { isVisible } from "./state";
 import { getEmailSource } from "@email/sources";
 import { systemPromptFor } from "./prompts";
 import { DIGEST_MODEL, getClient, recordUsage } from "./anthropic";
@@ -117,7 +118,7 @@ export async function digest(persona: Persona): Promise<DigestResult> {
     if (block.type === "thinking") thinking += block.thinking;
     if (block.type === "tool_use" && block.name === "record_action_items") {
       const parsed = RecordItemsInput.safeParse(block.input);
-      if (parsed.success) items = parsed.data.items;
+      if (parsed.success) items = parsed.data.items.filter((i) => isVisible(i.id));
     }
   }
 
