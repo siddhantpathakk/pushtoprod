@@ -183,6 +183,37 @@ We're not building a better inbox UI. We're building the first employee that rea
 
 ---
 
+## Future Work — GenSpark Workflow for Slack Integration
+
+Our next milestone is **native Slack ingestion via GenSpark Claw**, turning the "push any message" manual path into a fully automated pipeline:
+
+```
+[Slack Workspace] ──→ [GenSpark Claw Workflow] ──→ [Clarion /api/push endpoint]
+                         (scheduled / event-triggered)          ↓
+                                                     [LLM To-Do Derivation]
+                                                          ↓
+                                                   [ActionItem Database]
+```
+
+**How it works:**
+
+1. **GenSpark Claw connects to the team's Slack workspace** — using its native Slack integration, no custom OAuth or bot setup required.
+2. **A GenSpark workflow triggers on a schedule** (e.g., every morning before the digest runs) or on new-message events in designated channels.
+3. **The workflow forwards message content** to Clarion's universal intake API endpoint (`/api/push`), which already accepts raw text from any source.
+4. **Clarion's LLM derivation engine** parses the Slack messages into structured `ActionItem` objects — the same pipeline that handles manually pushed messages today.
+5. **Action items appear in the next digest** alongside email items, unified in one briefing.
+
+**Why GenSpark instead of a direct Slack API integration:**
+
+- **Zero connector code** — GenSpark handles Slack auth, pagination, rate limits, and message formatting. We write no Slack API code.
+- **Multi-channel extensibility** — the same GenSpark workflow pattern extends to Teams, WhatsApp, and Notion without building separate adapters for each.
+- **Scheduled + event-driven** — GenSpark supports both cron-style triggers and real-time event hooks, so the digest can be both proactive (morning briefing) and reactive (urgent message alert).
+- **Fits our architecture** — Clarion is deliberately channel-agnostic. GenSpark acts as the "adapter layer" our architecture diagram already anticipates, feeding into the same `ActionItem` database via the same LLM derivation path.
+
+**Planned timeline:** Slack via GenSpark is the first post-hackathon integration, followed by Microsoft Teams and calendar sources using the same workflow pattern.
+
+---
+
 ## Team
 
 Built by a team of 3 in a single hackathon sprint at **Push to Prod — Singapore**.
