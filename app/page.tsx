@@ -1,92 +1,216 @@
-import { STUB_DIGEST } from "@frontend/stub-data";
+"use client";
+// THROWAWAY mock UI for local testing. Human 2 will replace this entirely.
+import { useEffect, useRef, useState } from "react";
+import type { ActionItem, Answer } from "@backend/types";
+
+type Persona = "developer" | "manager" | "finance";
+type Msg = { role: "user" | "assistant"; text: string; citations?: Answer["citations"] };
 
 export default function Home() {
+  const [persona, setPersona] = useState<Persona>("finance");
+  const [digest, setDigest] = useState<ActionItem[]>([]);
+  const [digestLoading, setDigestLoading] = useState(false);
+  const [msgs, setMsgs] = useState<Msg[]>([]);
+  const [query, setQuery] = useState("");
+  const [streaming, setStreaming] = useState(false);
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  async function loadDigest(p: Persona) {
+    setDigestLoading(true);
+    try {
+      const res = await fetch("/api/digest", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ persona: p }),
+      });
+      const data = await res.json();
+      setDigest(data.items ?? []);
+    } finally {
+      setDigestLoading(false);
+    }
+  }
+
+  async function markDone(id: string) {
+    await fetch("/api/mark-done", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ item_id: id }),
+    });
+    setDigest((d) => d.filter((i) => i.id !== id));
+  }
+
+  async function sendMessage() {
+    if (!query.trim() || streaming) return;
+    const q = query.trim();
+    setQuery("");
+    setMsgs((m) => [...m, { role: "user", text: q }]);
+    setStreaming(true);
+
+    let buffer = "";
+    let citations: Answer["citations"] = [];
+    setMsgs((m) => [...m, { role: "assistant", text: "" }]);
+
+    try {
+      const res = await fetch("/api/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: q, persona }),
+      });
+      const reader = res.body!.getReader();
+      const dec = new TextDecoder();
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += dec.decode(value, { stream: true });
+        const lines = buffer.split("\n");
+        buffer = lines.pop() ?? "";
+        for (const line of lines) {
+          if (!line.startsWith("data: ")) continue;
+          const payload = line.slice(6);
+          if (payload === "[DONE]") break;
+          const evt = JSON.parse(payload);
+          if (evt.type === "text") {
+            setMsgs((m) => {
+              const copy = [...m];
+              copy[copy.length - 1] = {
+                ...copy[copy.length - 1],
+                text: copy[copy.length - 1].text + evt.text,
+              };
+              return copy;
+            });
+          } else if (evt.type === "citations") {
+            citations = evt.citations;
+            setMsgs((m) => {
+              const copy = [...m];
+              copy[copy.length - 1] = { ...copy[copy.length - 1], citations };
+              return copy;
+            });
+          }
+        }
+      }
+    } finally {
+      setStreaming(false);
+      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+
+  useEffect(() => { loadDigest(persona); }, [persona]);
+
+  const urgencyColor = { high: "text-red-600", medium: "text-amber-500", low: "text-zinc-400" };
+
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100">
-      <header className="border-b border-zinc-200 dark:border-zinc-800 px-6 py-4 flex items-center justify-between">
-        <h1 className="text-xl font-semibold">Push to Prod — Email Secretary</h1>
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
+      <header className="border-b border-zinc-800 px-6 py-3 flex items-center gap-4">
+        <span className="font-semibold text-sm">📬 Email Secretary</span>
         <select
-          className="text-sm border border-zinc-300 dark:border-zinc-700 rounded px-2 py-1 bg-white dark:bg-zinc-900"
-          defaultValue="finance"
+          value={persona}
+          onChange={(e) => setPersona(e.target.value as Persona)}
+          className="ml-auto text-xs bg-zinc-800 border border-zinc-700 rounded px-2 py-1"
         >
-          <option value="developer">Developer</option>
-          <option value="manager">Manager</option>
           <option value="finance">Finance / HR</option>
+          <option value="manager">Manager</option>
+          <option value="developer">Developer</option>
         </select>
       </header>
 
-      <main className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 max-w-7xl mx-auto">
-        <section aria-label="Today's digest" className="space-y-3">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold">Today&apos;s digest</h2>
+      <div className="flex flex-1 overflow-hidden">
+        {/* Digest pane */}
+        <aside className="w-80 border-r border-zinc-800 flex flex-col">
+          <div className="flex items-center justify-between px-4 py-2 border-b border-zinc-800">
+            <span className="text-xs font-medium uppercase tracking-wide text-zinc-400">Digest</span>
             <button
-              type="button"
-              className="text-sm rounded bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 px-3 py-1.5"
+              onClick={() => loadDigest(persona)}
+              disabled={digestLoading}
+              className="text-xs bg-zinc-800 px-2 py-1 rounded hover:bg-zinc-700 disabled:opacity-40"
             >
-              Refresh
+              {digestLoading ? "…" : "Refresh"}
             </button>
           </div>
-          <ul className="space-y-2">
-            {STUB_DIGEST.map((item) => (
-              <li
-                key={item.id}
-                className="border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 bg-white dark:bg-zinc-900"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="font-medium">{item.title}</p>
-                    <p className="text-xs text-zinc-500 mt-1">
-                      {item.category}
-                      {item.due_date ? ` · due ${item.due_date}` : ""}
-                    </p>
-                  </div>
-                  <span
-                    className={`text-xs font-medium rounded-full px-2 py-0.5 ${
-                      item.urgency === "high"
-                        ? "bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300"
-                        : item.urgency === "medium"
-                          ? "bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300"
-                          : "bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
-                    }`}
-                  >
-                    {item.urgency}
-                  </span>
+          <ul className="flex-1 overflow-y-auto divide-y divide-zinc-800">
+            {digest.length === 0 && !digestLoading && (
+              <li className="p-4 text-xs text-zinc-500">No items.</li>
+            )}
+            {digest.map((item) => (
+              <li key={item.id} className="p-3 text-xs space-y-1">
+                <div className="flex items-start justify-between gap-2">
+                  <span className="font-medium leading-snug">{item.title}</span>
+                  <button
+                    onClick={() => markDone(item.id)}
+                    className="shrink-0 text-zinc-500 hover:text-zinc-200"
+                    title="Mark done"
+                  >✓</button>
                 </div>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-2">
-                  {item.reason}
-                </p>
+                <div className="flex gap-2 text-zinc-500">
+                  <span className={urgencyColor[item.urgency]}>{item.urgency}</span>
+                  <span>{item.category}</span>
+                  {item.due_date && <span>due {item.due_date}</span>}
+                </div>
+                <p className="text-zinc-400">{item.reason}</p>
               </li>
             ))}
           </ul>
-        </section>
+        </aside>
 
-        <section aria-label="Chat with mailbox" className="space-y-3">
-          <h2 className="text-lg font-semibold">Chat with your mailbox</h2>
-          <div className="border border-zinc-200 dark:border-zinc-800 rounded-lg bg-white dark:bg-zinc-900 h-[60vh] flex flex-col">
-            <div className="flex-1 p-4 text-sm text-zinc-500">
-              Chat UI goes here. Wire to <code>/api/ask</code> with streaming.
-            </div>
-            <form className="border-t border-zinc-200 dark:border-zinc-800 p-3 flex gap-2">
-              <input
-                type="text"
-                placeholder="How many KrisFlyer points do I have?"
-                className="flex-1 text-sm rounded border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-2"
-              />
-              <button
-                type="submit"
-                disabled
-                className="text-sm rounded bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 px-3 py-2 disabled:opacity-50"
-              >
-                Ask
-              </button>
-            </form>
+        {/* Chat pane */}
+        <main className="flex-1 flex flex-col">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 text-sm">
+            {msgs.length === 0 && (
+              <p className="text-zinc-500 text-xs">Ask anything about your inbox.</p>
+            )}
+            {msgs.map((m, i) => (
+              <div key={i} className={m.role === "user" ? "text-right" : ""}>
+                <span
+                  className={`inline-block px-3 py-2 rounded-lg max-w-[80%] text-left whitespace-pre-wrap ${
+                    m.role === "user"
+                      ? "bg-zinc-700 text-zinc-100"
+                      : "bg-zinc-800 text-zinc-100"
+                  }`}
+                >
+                  {m.text || (streaming && i === msgs.length - 1 ? "▋" : "")}
+                </span>
+                {m.citations && m.citations.length > 0 && (
+                  <details className="mt-1 text-xs text-zinc-500 text-left">
+                    <summary className="cursor-pointer hover:text-zinc-300">
+                      {m.citations.length} source{m.citations.length > 1 ? "s" : ""}
+                    </summary>
+                    <ul className="mt-1 space-y-1 pl-2 border-l border-zinc-700">
+                      {m.citations.map((c, j) => (
+                        <li key={j}>
+                          <span className="text-zinc-400">{c.subject}</span>
+                          <blockquote className="text-zinc-500 mt-0.5 line-clamp-2">
+                            {c.quote}
+                          </blockquote>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
+              </div>
+            ))}
+            <div ref={bottomRef} />
           </div>
-        </section>
-      </main>
 
-      <footer className="text-center text-xs text-zinc-500 py-6">
-        Push to Prod 2026 · Built with Claude Agent SDK + MCP
-      </footer>
+          <form
+            onSubmit={(e) => { e.preventDefault(); sendMessage(); }}
+            className="border-t border-zinc-800 p-3 flex gap-2"
+          >
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="How many KrisFlyer points do I have?"
+              className="flex-1 text-sm bg-zinc-800 border border-zinc-700 rounded px-3 py-2 focus:outline-none focus:border-zinc-500"
+            />
+            <button
+              type="submit"
+              disabled={streaming || !query.trim()}
+              className="text-sm bg-zinc-100 text-zinc-900 px-4 py-2 rounded disabled:opacity-40 hover:bg-white"
+            >
+              {streaming ? "…" : "Ask"}
+            </button>
+          </form>
+        </main>
+      </div>
     </div>
   );
 }
