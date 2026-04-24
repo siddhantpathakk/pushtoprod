@@ -1,7 +1,6 @@
 import type Anthropic from "@anthropic-ai/sdk";
 import type { Answer, Citation } from "./types";
-import type { Persona } from "@email/sources";
-import { getEmailSource } from "@email/sources";
+import type { EmailSource, Persona } from "@email/sources";
 import { systemPromptFor } from "./prompts";
 import { CHAT_MODEL, getClient, recordUsage } from "./anthropic";
 import { emailsToDocuments, withCacheBreakpoint } from "./documents";
@@ -42,8 +41,11 @@ function extractCitations(content: Anthropic.Messages.ContentBlock[]): Citation[
 }
 
 // Non-streaming — used by bin/digest.ts and tests.
-export async function ask(query: string, persona: Persona): Promise<Answer> {
-  const source = getEmailSource();
+export async function ask(
+  query: string,
+  persona: Persona,
+  source: EmailSource,
+): Promise<Answer> {
   const emails = await source.list({ sinceDays: 30, limit: 50 });
   const documents = withCacheBreakpoint(emailsToDocuments(emails));
   const client = getClient();
@@ -64,8 +66,8 @@ export async function ask(query: string, persona: Persona): Promise<Answer> {
 export async function* askStream(
   query: string,
   persona: Persona,
+  source: EmailSource,
 ): AsyncGenerator<string> {
-  const source = getEmailSource();
   const emails = await source.list({ sinceDays: 30, limit: 50 });
   const documents = withCacheBreakpoint(emailsToDocuments(emails));
   const client = getClient();

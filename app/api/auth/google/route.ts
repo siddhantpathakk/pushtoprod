@@ -28,10 +28,12 @@ export async function GET(_req: NextRequest) {
     client_id: clientId,
     redirect_uri: redirectUri,
     response_type: "code",
-    scope: "openid email profile",
+    scope:
+      "openid email profile https://www.googleapis.com/auth/gmail.readonly",
     state,
-    access_type: "online",
-    prompt: "select_account",
+    // offline + consent is required to reliably receive a refresh token.
+    access_type: "offline",
+    prompt: "consent",
     include_granted_scopes: "true",
   });
 
