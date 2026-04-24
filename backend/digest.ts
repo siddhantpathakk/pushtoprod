@@ -74,14 +74,27 @@ export async function digest(persona: Persona): Promise<DigestResult> {
     },
   ];
 
+  // Extended thinking only on Opus (adaptive) and Sonnet (enabled). Skip on
+  // Haiku and other lighter models.
+  const isOpus = DIGEST_MODEL.includes("opus");
+  const isSonnet = DIGEST_MODEL.includes("sonnet");
+  const thinkingParams = isOpus
+    ? {
+        thinking: { type: "adaptive" as const },
+        output_config: { effort: "medium" as const },
+      }
+    : isSonnet
+      ? { thinking: { type: "enabled" as const, budget_tokens: 2000 } }
+      : {};
+
   const client = getClient();
   const res = await client.messages.create({
     model: DIGEST_MODEL,
     max_tokens: 8000,
-    thinking: { type: "enabled", budget_tokens: 3000 },
+    ...thinkingParams,
     system,
     tools: [TOOL],
-    tool_choice: { type: "tool", name: "record_action_items" },
+    tool_choice: { type: "auto" },
     messages: [
       {
         role: "user",

@@ -11,8 +11,12 @@ export function getClient(): Anthropic {
   return _client;
 }
 
-export const CHAT_MODEL = "claude-sonnet-4-6";
-export const DIGEST_MODEL = "claude-opus-4-7";
+// Override in .env.local for the live demo:
+//   CHAT_MODEL=claude-sonnet-4-6
+//   DIGEST_MODEL=claude-opus-4-7
+// Defaults below use Haiku for cheap iteration during dev.
+export const CHAT_MODEL = process.env.CHAT_MODEL ?? "claude-haiku-4-5-20251001";
+export const DIGEST_MODEL = process.env.DIGEST_MODEL ?? "claude-haiku-4-5-20251001";
 
 // Module-level counter feeding /api/cache-stats
 export const cacheStats = {
