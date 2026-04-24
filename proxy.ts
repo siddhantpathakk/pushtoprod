@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 // Edge-runtime-safe copy of the signature verification used by lib/auth.ts.
-// Kept in-file so middleware does not pull in `next/headers` or other
+// Kept in-file so this proxy does not pull in `next/headers` or other
 // Node-only imports transitively.
 
 const SESSION_COOKIE = "pp_session";
@@ -83,7 +83,7 @@ function isPublicPath(pathname: string): boolean {
   return false;
 }
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { pathname, search } = req.nextUrl;
 
   if (isPublicPath(pathname)) {
