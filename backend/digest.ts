@@ -70,7 +70,7 @@ export async function digest(persona: Persona): Promise<DigestResult> {
   const system: Anthropic.Messages.TextBlockParam[] = [
     {
       type: "text",
-      text: `${systemPromptFor(persona)}\n\nGenerate a prioritized action-item digest from the user's recent emails. Call record_action_items exactly once. Return 3-8 items, the most important first.`,
+      text: `${systemPromptFor(persona)}\n\nGenerate a prioritized action-item digest from the user's recent emails. Call record_action_items exactly once. Return up to 15 items (aim for at least 3 when the inbox has real signal), the most important first.`,
       cache_control: { type: "ephemeral" },
     },
   ];
