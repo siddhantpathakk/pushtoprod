@@ -215,16 +215,31 @@ export default function Home() {
       <header className="px-8 py-6 flex items-center justify-between max-w-5xl w-full mx-auto">
         <Brand tagline />
 
-        <select
-          value={persona}
-          onChange={(e) => setPersona(e.target.value as Persona)}
-          className="text-sm bg-transparent text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 focus:outline-none cursor-pointer transition-colors"
-          aria-label="Persona"
-        >
-          <option value="developer">Developer</option>
-          <option value="manager">Manager</option>
-          <option value="finance">Finance / HR</option>
-        </select>
+        <div className="flex items-center gap-4">
+          <select
+            value={persona}
+            onChange={(e) => setPersona(e.target.value as Persona)}
+            className="text-sm bg-transparent text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 focus:outline-none cursor-pointer transition-colors"
+            aria-label="Persona"
+          >
+            <option value="developer">Developer</option>
+            <option value="manager">Manager</option>
+            <option value="finance">Finance / HR</option>
+          </select>
+
+          <span aria-hidden className="text-stone-300 dark:text-stone-700">
+            ·
+          </span>
+
+          <form action="/api/auth/logout" method="post">
+            <button
+              type="submit"
+              className="text-sm bg-transparent text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 focus:outline-none cursor-pointer transition-colors"
+            >
+              Sign out
+            </button>
+          </form>
+        </div>
       </header>
 
       <StatusBar />
