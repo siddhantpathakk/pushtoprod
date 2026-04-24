@@ -1,8 +1,7 @@
 import type Anthropic from "@anthropic-ai/sdk";
 import { ActionItemSchema, type ActionItem } from "./types";
-import type { Persona } from "@email/sources";
+import type { EmailSource, Persona } from "@email/sources";
 import { isVisible } from "./state";
-import { getEmailSource } from "@email/sources";
 import { systemPromptFor } from "./prompts";
 import { DIGEST_MODEL, getClient, recordUsage } from "./anthropic";
 import { emailsToDocuments, withCacheBreakpoint } from "./documents";
@@ -62,8 +61,10 @@ export type DigestResult = {
   thinking: string;
 };
 
-export async function digest(persona: Persona): Promise<DigestResult> {
-  const source = getEmailSource();
+export async function digest(
+  persona: Persona,
+  source: EmailSource,
+): Promise<DigestResult> {
   const emails = await source.list({ sinceDays: 14, limit: 50 });
   const documents = withCacheBreakpoint(emailsToDocuments(emails));
 

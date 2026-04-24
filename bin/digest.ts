@@ -9,7 +9,7 @@
  * never crashes Claude Code startup).
  */
 import { digest } from "../backend/digest";
-import type { Persona } from "../email/sources";
+import { FixtureEmailSource, type Persona } from "../email/sources";
 
 function parsePersona(): Persona {
   const arg = process.argv.find((a) => a.startsWith("--persona="));
@@ -34,7 +34,7 @@ async function main() {
   }
 
   try {
-    const { items } = await digest(persona);
+    const { items } = await digest(persona, new FixtureEmailSource());
     if (items.length === 0) {
       console.log(`📬  No urgent items in your inbox today (${persona}).`);
       return;

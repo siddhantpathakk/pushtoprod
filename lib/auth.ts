@@ -14,6 +14,11 @@ export type SessionPayload = {
   name: string;
   picture: string;
   iat: number;
+  // Google OAuth tokens for Gmail API access. Stored short-keyed to keep the
+  // signed cookie small. `exp` is the access-token expiry in ms since epoch.
+  at?: string;
+  rt?: string;
+  exp?: number;
 };
 
 // ---------- base64url helpers ----------
@@ -172,4 +177,80 @@ export function safeEqualStrings(a: string, b: string): boolean {
   const ea = new TextEncoder().encode(a);
   const eb = new TextEncoder().encode(b);
   return timingSafeEqual(ea, eb);
+}
+
+// ---------- Google access-token refresh ----------
+
+const GOOGLE_TOKEN_ENDPOINT = "https://oauth2.googleapis.com/token";
+
+export class GmailAuthError extends Error {
+  constructor(
+    message: string,
+    public readonly userMessage: string,
+  ) {
+    super(message);
+    this.name = "GmailAuthError";
+  }
+}
+
+/**
+ * Return a valid Gmail access token, refreshing via the refresh token if the
+ * cached one has expired (or is within 60s of expiring). Callers that receive
+ * an `updatedSession` MUST re-sign it and re-set the session cookie.
+ */
+export async function ensureFreshAccessToken(
+  session: SessionPayload,
+): Promise<{ accessToken: string; updatedSession?: SessionPayload }> {
+  if (!session.at || !session.rt || !session.exp) {
+    throw new GmailAuthError(
+      "Session missing Gmail tokens",
+      "Gmail access wasn't granted. Please sign out and sign in again to connect your inbox.",
+    );
+  }
+
+  const now = Date.now();
+  if (now < session.exp - 60_000) {
+    return { accessToken: session.at };
+  }
+
+  const clientId = process.env.GOOGLE_OAUTH_CLIENT_ID;
+  const clientSecret = process.env.GOOGLE_OAUTH_CLIENT_SECRET;
+  if (!clientId || !clientSecret) {
+    throw new GmailAuthError(
+      "Google OAuth not configured",
+      "The server is missing Google OAuth credentials.",
+    );
+  }
+
+  const res = await fetch(GOOGLE_TOKEN_ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      client_id: clientId,
+      client_secret: clientSecret,
+      grant_type: "refresh_token",
+      refresh_token: session.rt,
+    }).toString(),
+    cache: "no-store",
+  });
+
+  const json = (await res.json()) as {
+    access_token?: string;
+    expires_in?: number;
+    error?: string;
+  };
+
+  if (!res.ok || !json.access_token) {
+    throw new GmailAuthError(
+      `Token refresh failed: ${json.error ?? res.status}`,
+      "Your Gmail session expired. Please sign out and sign in again.",
+    );
+  }
+
+  const updatedSession: SessionPayload = {
+    ...session,
+    at: json.access_token,
+    exp: Date.now() + (json.expires_in ?? 3600) * 1000,
+  };
+  return { accessToken: json.access_token, updatedSession };
 }

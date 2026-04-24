@@ -17,6 +17,7 @@ const GOOGLE_USERINFO_ENDPOINT = "https://www.googleapis.com/oauth2/v3/userinfo"
 
 type GoogleTokenResponse = {
   access_token?: string;
+  refresh_token?: string;
   id_token?: string;
   expires_in?: number;
   token_type?: string;
@@ -103,12 +104,19 @@ export async function GET(req: NextRequest) {
     return errorRedirect(req, "incomplete_profile");
   }
 
+  if (!tokenJson.refresh_token) {
+    return errorRedirect(req, "missing_refresh_token");
+  }
+
   const payload: SessionPayload = {
     sub: user.sub,
     email: user.email,
     name: user.name ?? "",
     picture: user.picture ?? "",
     iat: Math.floor(Date.now() / 1000),
+    at: tokenJson.access_token,
+    rt: tokenJson.refresh_token,
+    exp: Date.now() + (tokenJson.expires_in ?? 3600) * 1000,
   };
   const token = await signSession(payload);
 
