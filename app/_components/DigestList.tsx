@@ -37,7 +37,15 @@ function CheckIcon({ className }: { className?: string }) {
   );
 }
 
-export default function DigestList({ items }: { items: ActionItem[] }) {
+export default function DigestList({
+  items,
+  onRefresh,
+  isRefreshing = false,
+}: {
+  items: ActionItem[];
+  onRefresh?: () => void;
+  isRefreshing?: boolean;
+}) {
   const [doneIds, setDoneIds] = useState<Set<string>>(() => new Set());
   const [pendingIds, setPendingIds] = useState<Set<string>>(() => new Set());
 
@@ -111,9 +119,11 @@ export default function DigestList({ items }: { items: ActionItem[] }) {
         </div>
         <button
           type="button"
-          className="text-sm text-stone-500 hover:text-stone-900 dark:hover:text-stone-100 transition-colors"
+          onClick={onRefresh}
+          disabled={isRefreshing || !onRefresh}
+          className="text-sm text-stone-500 hover:text-stone-900 dark:hover:text-stone-100 transition-colors disabled:opacity-50"
         >
-          Refresh
+          {isRefreshing ? "Refreshing…" : "Refresh"}
         </button>
       </div>
 
