@@ -262,6 +262,11 @@ export default function OnboardingPage() {
               })}
             </div>
 
+            <p className="text-xs text-stone-500 text-center">
+              Don&rsquo;t see yourself? You can create your own persona later
+              from the menu in the top right.
+            </p>
+
             {error && (
               <p className="text-xs text-stone-500 text-center" role="alert">
                 {error}
