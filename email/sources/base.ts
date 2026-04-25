@@ -1,4 +1,11 @@
-export type Persona = "developer" | "manager" | "finance";
+export type PresetPersona = "developer" | "manager" | "finance";
+
+export interface CustomPersona {
+  name: string;
+  focus: string;
+}
+
+export type Persona = PresetPersona | CustomPersona;
 
 export interface Email {
   id: string;

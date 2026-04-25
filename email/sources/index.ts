@@ -1,3 +1,9 @@
 export { FixtureEmailSource } from "./fixtures";
 export { GmailEmailSource, GmailFetchError } from "./gmail";
-export type { Email, EmailSource, Persona } from "./base";
+export type {
+  CustomPersona,
+  Email,
+  EmailSource,
+  Persona,
+  PresetPersona,
+} from "./base";
