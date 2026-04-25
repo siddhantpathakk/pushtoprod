@@ -129,6 +129,7 @@ export default function Home() {
 
   useEffect(() => {
     if (!hydrated) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- fetching when persona changes is the canonical use of this effect
     loadDigest(persona);
   }, [hydrated, persona, loadDigest]);
 
