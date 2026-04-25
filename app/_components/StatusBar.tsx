@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { SyncStatus } from "./types";
 
 const DOT_CLASS: Record<SyncStatus, string> = {
@@ -9,15 +9,51 @@ const DOT_CLASS: Record<SyncStatus, string> = {
   idle: "bg-stone-400 dark:bg-stone-600",
 };
 
-const LABEL: Record<SyncStatus, string> = {
-  live: "Synced 4 minutes ago · 127 emails scanned today",
-  syncing: "Syncing mailbox…",
-  idle: "Idle",
+function formatRelative(elapsedMs: number): string {
+  if (elapsedMs < 30_000) return "just now";
+  const minutes = Math.floor(elapsedMs / 60_000);
+  if (minutes < 1) return "less than a minute ago";
+  if (minutes < 60) return `${minutes}m ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  return `${days}d ago`;
+}
+
+type Props = {
+  refreshedAt: number | null;
+  scannedCount: number | null;
+  isRefreshing: boolean;
 };
 
-export default function StatusBar() {
-  // Hardcoded "live" for now; useState keeps this ready to demo other states.
-  const [status] = useState<SyncStatus>("live");
+export default function StatusBar({
+  refreshedAt,
+  scannedCount,
+  isRefreshing,
+}: Props) {
+  const [, setTick] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setTick((t) => t + 1), 30_000);
+    return () => clearInterval(id);
+  }, []);
+
+  const status: SyncStatus = isRefreshing
+    ? "syncing"
+    : refreshedAt === null
+      ? "idle"
+      : "live";
+
+  let label: string;
+  if (status === "syncing") {
+    label = "Syncing mailbox…";
+  } else if (status === "idle" || refreshedAt === null) {
+    label = "Idle";
+  } else {
+    const relative = formatRelative(Date.now() - refreshedAt);
+    const count = scannedCount ?? 0;
+    label = `Synced ${relative} · ${count} emails in last refresh`;
+  }
 
   return (
     <div className="border-b border-stone-200/60 dark:border-stone-900/60">
@@ -27,7 +63,7 @@ export default function StatusBar() {
             aria-hidden
             className={`h-1.5 w-1.5 rounded-full shrink-0 ${DOT_CLASS[status]}`}
           />
-          <span>{LABEL[status]}</span>
+          <span>{label}</span>
         </div>
       </div>
     </div>

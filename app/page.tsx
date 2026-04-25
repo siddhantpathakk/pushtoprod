@@ -97,6 +97,8 @@ export default function Home() {
   const [hydrated, setHydrated] = useState(false);
   const [items, setItems] = useState<ActionItem[]>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [refreshedAt, setRefreshedAt] = useState<number | null>(null);
+  const [scannedCount, setScannedCount] = useState<number | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [streaming, setStreaming] = useState(false);
@@ -118,8 +120,13 @@ export default function Home() {
         body: JSON.stringify({ persona: p }),
       });
       if (!res.ok) throw new Error(await res.text());
-      const data = (await res.json()) as { items: ActionItem[] };
+      const data = (await res.json()) as {
+        items: ActionItem[];
+        scannedCount: number;
+      };
       setItems(data.items ?? []);
+      setScannedCount(data.scannedCount);
+      setRefreshedAt(Date.now());
     } catch (err) {
       console.error("Failed to load digest:", err);
     } finally {
@@ -245,7 +252,11 @@ export default function Home() {
         </div>
       </header>
 
-      <StatusBar />
+      <StatusBar
+        refreshedAt={refreshedAt}
+        scannedCount={scannedCount}
+        isRefreshing={isRefreshing}
+      />
 
       <main className="flex-1 grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-16 px-8 pb-16 pt-4 max-w-5xl w-full mx-auto">
         <section aria-label="Today's digest" className="space-y-6">
