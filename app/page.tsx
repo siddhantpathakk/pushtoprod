@@ -5,8 +5,11 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Brand from "./_components/Brand";
 import DigestList from "./_components/DigestList";
+import PersonaSwitcher, {
+  loadActivePersona,
+} from "./_components/PersonaSwitcher";
 import StatusBar from "./_components/StatusBar";
-import type { ActionItem } from "./_components/types";
+import type { ActionItem, Persona } from "./_components/types";
 
 const MARKDOWN_COMPONENTS = {
   p: (props: React.ComponentProps<"p">) => (
@@ -82,7 +85,6 @@ const MARKDOWN_COMPONENTS = {
   ),
 };
 
-type Persona = "developer" | "manager" | "finance";
 type Citation = { email_id: string; subject: string; quote: string };
 type Message = {
   role: "user" | "assistant";
@@ -92,12 +94,20 @@ type Message = {
 
 export default function Home() {
   const [persona, setPersona] = useState<Persona>("finance");
+  const [hydrated, setHydrated] = useState(false);
   const [items, setItems] = useState<ActionItem[]>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [streaming, setStreaming] = useState(false);
   const chatBottomRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const stored = loadActivePersona();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- hydrating from localStorage on mount
+    if (stored) setPersona(stored);
+    setHydrated(true);
+  }, []);
 
   const loadDigest = useCallback(async (p: Persona) => {
     setIsRefreshing(true);
@@ -118,8 +128,10 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    if (!hydrated) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- fetching when persona changes is the canonical use of this effect
     loadDigest(persona);
-  }, [persona, loadDigest]);
+  }, [hydrated, persona, loadDigest]);
 
   useEffect(() => {
     chatBottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -216,16 +228,7 @@ export default function Home() {
         <Brand tagline />
 
         <div className="flex items-center gap-4">
-          <select
-            value={persona}
-            onChange={(e) => setPersona(e.target.value as Persona)}
-            className="text-sm bg-transparent text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 focus:outline-none cursor-pointer transition-colors"
-            aria-label="Persona"
-          >
-            <option value="developer">Developer</option>
-            <option value="manager">Manager</option>
-            <option value="finance">Finance / HR</option>
-          </select>
+          <PersonaSwitcher persona={persona} onChange={setPersona} />
 
           <span aria-hidden className="text-stone-300 dark:text-stone-700">
             ·
