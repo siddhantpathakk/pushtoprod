@@ -59,6 +59,7 @@ const TOOL: Anthropic.Messages.Tool = {
 export type DigestResult = {
   items: ActionItem[];
   thinking: string;
+  scannedCount: number;
 };
 
 export async function digest(
@@ -123,5 +124,5 @@ export async function digest(
     }
   }
 
-  return { items, thinking };
+  return { items, thinking, scannedCount: emails.length };
 }
